@@ -21,17 +21,18 @@
 
 axios.get('https://lambda-times-backend.herokuapp.com/articles')
 .then(response =>{
-    //console.log(response);
-    let articles = Object.values(response.data);
-    console.log(response);
-    console.log(articles);
 
-    // articles.forEach(element => {
-        
-    // });
+    let articles = Object.values(response.data.articles);
+    //console.log(articles);
+
+    articles.forEach(article => {
+        article.forEach(element =>{
+            cardMaker(element);
+        })
+    });
 })
 .catch(error =>{
-    console.log("teh data was not recieved", error);
+    console.log("the data was not recieved", error);
 })
 
 //grab parent element
@@ -49,9 +50,9 @@ function cardMaker (data){
 
 
     //add content
-    headline.textContent = data;
+    headline.textContent = data.headline;
     img.src = data.authorPhoto;
-    authorSpan.textContent =`By: ${authorName}`;
+    authorSpan.textContent =`By: ${data.authorName}`;
 
     //add classes
     contianerDiv.classList.add('card');
